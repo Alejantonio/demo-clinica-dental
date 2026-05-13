@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentista</title>
+    <!-- Asegúrate de que el nombre coincida exactamente con tu archivo -->
+    <link rel="stylesheet" href="/static/Styles.css"> 
+</head>
+<body>
+
+    <!-- El Menú Lateral -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="/static/Img/Muela.png" alt="Logo" class="profile-img">
+            <span class="text">Menú</span>
+        </div>
+        
+        <ul class="sidebar-links">
+            <li>
+                <a href="#">
+                    <span class="icon">🦷</span>
+                    <span class="text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📆</span>
+                    <span class="text">Agenda</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">👤</span>
+                    <span class="text">Usuarios</span>
+                </a>
+            </li>
+
+            <li class="push-down"></li>
+
+            <li>
+                <a href="#" class="theme-switch-wrapper" style="cursor: default;">
+                    <span class="icon" id="theme-icon">🌙</span>
+                    <span class="text" id="theme-text">Modo oscuro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">👤</span>
+                    <span class="text">Mi perfil</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+<main class="main-content">
+        <header class="dashboard-header">
+            <h1>Panel de Gestión Odontológica</h1>
+            <p>Bienvenido, Dr. Administrador</p>
+        </header>
+
+        <!-- Tarjetas de Resumen -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Pacientes Totales</h3>
+                <p class="stat-number">{{ pacientes|length }}</p>
+            </div>
+            <div class="stat-card">
+                <h3>Citas Hoy</h3>
+                <p class="stat-number">0</p>
+            </div>
+        </div>
+
+        <!-- Tabla de Pacientes -->
+        <section class="table-container">
+            <h2>Listado de Pacientes</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Edad</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pacientes %}
+                    <tr>
+                        <td>{{ p['nombre_completo'] }}</td>
+                        <td>{{ p['edad'] }}</td>
+                        <td>{{ p['telefono'] }}</td>
+                        <td>{{ p['correo'] }}</td>
+                        <td>
+                            <button class="btn-edit">Ver Ficha</button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">No hay pacientes registrados aún.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+
+<footer class="footer-clinica">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Clínica Dental</h3>
+            <p>Cuidando tu sonrisa con la mejor tecnología y un equipo humano excepcional.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>📍 Calle Principal #123</p>
+            <p>📞 +52 123 456 7890</p>
+            <p>✉️ contacto@dentista.com</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Clínica Dental - Todos los derechos reservados
+    </div>
+</footer>
+
+
+<script src="/static/Script.js"></script>
+</body>
+</html>

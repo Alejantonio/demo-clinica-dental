@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentista</title>
+    <!-- Asegúrate de que el nombre coincida exactamente con tu archivo -->
+    <link rel="stylesheet" href="/static/Styles.css"> 
+</head>
+<body>
+
+    <!-- El Menú Lateral -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="/static/Img/Muela.png" alt="Logo" class="profile-img">
+            <span class="text">Menú</span>
+        </div>
+        
+        <ul class="sidebar-links">
+            <li>
+                <a href="#">
+                    <span class="icon">🦷</span>
+                    <span class="text">Perfil</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">📆</span>
+                    <span class="text">Agenda</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">👤</span>
+                    <span class="text">Usuarios</span>
+                </a>
+            </li>
+
+            <li class="push-down"></li>
+
+            <li>
+                <a href="#" class="theme-switch-wrapper" style="cursor: default;">
+                    <span class="icon" id="theme-icon">🌙</span>
+                    <span class="text" id="theme-text">Modo oscuro</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon">👤</span>
+                    <span class="text">Mi perfil</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+        <h1>Bienvendo a tu nueva vida llena de frescura bucal</h1>
+        <p>En [Nombre de la Clínica], creemos que ir al dentista debería ser una experiencia tranquila y positiva. Combinamos un trato humano excepcional con tecnología de vanguardia para cuidar de tu salud bucal en cada etapa de tu vida. Déjanos ayudarte a sonreír con total confianza.</p>
+    
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <div class="slide fade">
+                <img src="/static/Img/clinica1.jpg" alt="Instalaciones">
+                <div class="slide-text">Tecnología de Vanguardia</div>
+            </div>
+            <div class="slide fade">
+                <img src="/static/  Img/clinica2.jpg" alt="Equipo Médico">
+                <div class="slide-text">Expertos en tu Sonrisa</div>
+            </div>
+            <div class="slide fade">
+                <img src="/static/Img/clinica3.jpg" alt="Atención">
+                <div class="slide-text">Ambiente Relajado y Seguro</div>
+            </div>
+        </div>
+    
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>    
+    </main>
+
+
+<footer class="footer-clinica">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>Clínica Dental</h3>
+            <p>Cuidando tu sonrisa con la mejor tecnología y un equipo humano excepcional.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Contacto</h4>
+            <p>📍 Calle Principal #123</p>
+            <p>📞 +52 123 456 7890</p>
+            <p>✉️ contacto@dentista.com</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Síguenos</h4>
+            <div class="social-links">
+                <a href="#" class="social-icon">Facebook</a>
+                <a href="#" class="social-icon">Instagram</a>
+                <a href="#" class="social-icon">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Clínica Dental - Todos los derechos reservados
+    </div>
+</footer>
+
+
+<script src="/static/Script.js"></script>
+</body>
+</html>

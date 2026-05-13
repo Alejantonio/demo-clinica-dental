@@ -1,0 +1,638 @@
+    /* --- ESTILOS GENERALES Y TRANSICIONES --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+        background-color: #131314; /* Fondo oscuro inicial */
+        color: #e3e3e3;
+        /* Añadimos transición para que el cambio de color sea suave */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* --- MENÚ LATERAL (MODO OSCURO POR DEFECTO) --- */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 70px;
+        background-color: #1e1e20;
+        overflow: hidden;
+        transition: width 0.3s ease, background-color 0.3s ease;
+        z-index: 1000;
+    }
+
+    .sidebar:hover {
+        width: 280px;
+        box-shadow: 4px 0 10px rgba(0,0,0,0.3);
+    }
+
+    .sidebar-header {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        font-size: 20px;
+        color: inherit; /* Hereda el color del body o del padre */
+        white-space: nowrap;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .sidebar-links {
+        list-style: none;
+        padding: 0 10px;
+        display: flex;
+        flex-direction: column; /* Alinea los li uno abajo de otro */
+        height: calc(100% - 100px); /* Resto del espacio después de header y posible footer */
+    }
+
+    /* --- MODIFICACIÓN DEL HOVER EN LOS ENLACES --- */
+    .sidebar-links li a:hover {
+        background-color: #333537; /* Mantener el color de fondo */
+        transform: scale(1.05) translateX(10px);
+        
+        /* Añadimos una sombra suave para que parezca que "flota" */
+        box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.3);
+        
+        /* Aseguramos que el cambio sea suave */
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* IMPORTANTE: Para que la animación funcione, el estado normal 
+    del enlace también debe tener la propiedad transition */
+    .sidebar-links li a {
+        display: flex;
+        align-items: center;
+        padding: 12px 10px;
+        color: inherit;
+        text-decoration: none;
+        border-radius: 20px;
+        margin-bottom: 5px;
+        white-space: nowrap;
+        
+        /* Esta línea es clave para que al quitar el mouse vuelva suavemente */
+        transition: all 0.3s ease; 
+
+    }
+
+    .icon {
+        min-width: 30px;
+        display: flex;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .text {
+        margin-left: 15px;
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover .text {
+        opacity: 1;
+        transition-delay: 0.1s;
+    }
+
+    /* --- CONTENIDO PRINCIPAL --- */
+    .main-content {
+        margin-left: 70px; /* Espacio de la barra minimizada */
+        padding: 40px;
+        /* Agregamos opacity y transform a la transición */
+        transition: margin-left 0.3s ease, color 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+        /* Aseguramos que el origen de la escala sea el centro para que se vea equilibrado */
+        transform-origin: center;   
+    }
+
+    /* --- INTERRUPTOR (TOGGLE) --- */
+    .theme-switch-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-right: 15px !important;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 36px;
+        height: 20px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+
+    .sidebar:hover .switch {
+        opacity: 1;
+        transition-delay: 0.1s;
+    }
+
+    .switch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #555;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #3498db;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(16px);
+    }
+
+    /* --- CONFIGURACIÓN DEL MODO CLARO (LIGHT MODE) --- */
+
+    /* Cuando el body tiene la clase .light-mode... */
+    body.light-mode {
+        background-color: #ffffff;
+        color: #1f1f1f; /* Texto casi negro para mejor lectura */
+    }
+
+    body.light-mode .sidebar {
+        background-color: #B2D8D8; /* Color claro para la barra */
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* Forzamos que los enlaces y el header cambien de color en modo claro */
+    body.light-mode .sidebar-header,
+    body.light-mode .sidebar-links li a {
+        color: #1f1f1f;
+    }
+
+    /* Color de hover en los botones para modo claro */
+    body.light-mode .sidebar-links li a:hover {
+        background-color: #dbe4f0;
+    }
+
+    /* Ajuste del slider cuando no está activo en modo claro */
+    body.light-mode .slider {
+        background-color: #ccc;
+    }
+
+    /* Estilo específico para la foto del menú */
+    .profile-img {
+        width: 30px;      /* Tamaño de la imagen (ajusta según prefieras) */
+        height: 30px;
+        border-radius: 50%; /* Esto la hace circular como en Gemini o redes sociales */
+        object-fit: cover;  /* Evita que la foto se estire si no es cuadrada */
+        transition: transform 0.3s ease;
+    }
+
+    /* Efecto opcional: que la foto crezca un poquito cuando abras el menú */
+    .sidebar:hover .profile-img {
+        transform: scale(1.1);
+    }
+
+    /* Ajuste del contenedor de iconos para que la imagen no se corte */
+    .icon {
+        min-width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar:hover ~ .main-content {
+        margin-left: 280px;  /* Empuja el contenido */
+        transform: scale(0.95); /* Lo aleja un 5% (efecto hacia atrás) */
+        opacity: 0.6;           /* Lo opaca un poco (puedes subirlo a 0.7 si es muy oscuro) */
+    }
+
+    .theme-switch-wrapper .text {
+        /* Le damos un margen flexible a la derecha para empujar al interruptor */
+        margin-right: auto; 
+        /* Mantenemos tu alineación de texto original */
+        margin-left: 15px; 
+    }
+
+    .push-down {
+        margin-top: auto; 
+        margin-bottom: 5px; /* Espacio opcional antes del último link */
+    }
+
+    /* --- CARRUSEL DE FOTOS --- */
+    .carousel-container {
+        max-width: 1000px;
+        position: relative;
+        margin: 20px auto;
+        border-radius: 20px;
+        overflow: hidden; /* Corta las esquinas de las fotos para que sean redondas */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .slide {
+        display: none; /* Se ocultan por defecto */
+    }
+
+    .slide img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover; /* Evita que las fotos se deformen */
+        vertical-align: middle;
+    }
+
+    /* Texto sobre las fotos */
+    .slide-text {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 500;
+        backdrop-filter: blur(5px);
+    }
+
+    /* Botones Anterior y Siguiente */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        text-decoration: none;
+    }
+
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    /* Animación de desvanecimiento */
+    .fade {
+        animation: fadeAnim 1.5s;
+    }
+
+    @keyframes fadeAnim {
+        from {opacity: .4} 
+        to {opacity: 1}
+    }
+
+    /* --- PIE DE PÁGINA (FOOTER) --- */
+    .footer-clinica {
+        margin-top: 50px;
+        background-color: #1e1e20; /* Color igual a tu sidebar oscura */
+        padding: 40px 20px 20px 20px;
+        border-radius: 20px 20px 0 0; /* Solo redondeamos las esquinas de arriba */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .footer-content {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-section {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .footer-section h3, .footer-section h4 {
+        margin-bottom: 15px;
+        color: #3498db; /* Color de acento de tu slider */
+    }
+
+    .footer-section p {
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 0.8;
+    }
+
+    /* Redes Sociales */
+    .social-links {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-icon {
+        text-decoration: none;
+        color: inherit;
+        font-size: 14px;
+        padding: 8px 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .social-icon:hover {
+        background: #3498db;
+        transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 12px;
+        opacity: 0.6;
+    }
+
+    /* --- AJUSTE PARA MODO CLARO --- */
+    body.light-mode .footer-clinica {
+        background-color: #B2D8D8; /* Usamos tu turquesa favorito */
+        color: #1f1f1f;
+    }
+
+    body.light-mode .footer-bottom {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .social-icon {
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* --- CONTENEDOR DE LOGIN --- */
+    .login-container {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: inherit; /* Para que use el color de fondo de tu modo claro/oscuro */
+    }
+
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        background-color: #333537; /* Fondo oscuro para el login */
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Ajuste para que la caja sea clara en Light Mode */
+    body.light-mode .login-box {
+        background-color: #f5f5f5;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .login-icon {
+        font-size: 50px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 15px;
+        border: none;
+        background-color: #333537;
+        color: white;
+        transition: 0.3s;
+    }
+
+    body.light-mode .input-group input {
+        background-color: #e0e0e0;
+        color: #1f1f1f;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 14px;
+        border-radius: 15px;
+        border: none;
+        background-color: #3498db;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-login:hover {
+        background-color: #2980b9;
+        transform: scale(1.02);
+    }
+
+    /* --- DISEÑO DE PANTALLA DIVIDIDA --- */
+    .login-split-container {
+        display: flex;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    /* Lado del Carrusel */
+    .login-visual {
+        flex: 1; /* Ocupa el 50% */
+        background-color: #131314;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-visual img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover; /* Para que la foto llene todo el lado izquierdo */
+    }
+
+    /* Lado del Formulario */
+    .login-form-side {
+        flex: 1; /* Ocupa el otro 50% */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: inherit; /* Cambia con el modo claro/oscuro */
+    }
+
+    /* Ajuste de tu login-box para este diseño */
+    .login-box {
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        /* Quitamos el shadow pesado para un look más "flat" y moderno */
+        box-shadow: none; 
+    }
+
+    /* --- RESPONSIVE: En móviles se apilan --- */
+    @media (max-width: 768px) {
+        .login-split-container {
+            flex-direction: column; /* El carrusel arriba, el login abajo */
+        }
+        .login-visual {
+            display: none; /* Opcional: ocultar fotos en móvil para ir directo al grano */
+        }
+    }
+
+    /* =======================================================
+   DISEÑO DE PANTALLA DIVIDIDA (LOGIN Y CARRUSEL)
+   ======================================================= */
+
+.split-container {
+    display: flex;
+    align-items: center;      /* Centra ambos bloques verticalmente */
+    justify-content: center;
+    gap: 40px;                /* Espacio de separación entre carrusel y login */
+    min-height: 80vh;         /* Asegura que ocupe buena parte de la pantalla */
+    width: 100%;
+    padding: 20px 0;
+}
+
+/* --- MITAD IZQUIERDA: CARRUSEL --- */
+.split-visual {
+    flex: 1;                  /* Ocupa el 50% del contenedor */
+    display: flex;
+    justify-content: center;
+}
+
+/* Ajustamos tu carrusel existente para que encaje perfecto en su mitad */
+.split-visual .carousel-container {
+    width: 100%;
+    margin: 0;                /* Quitamos el margin auto para que Flexbox controle la posición */
+    max-width: 100%;          /* Permite que llene toda su mitad */
+    height: 100%;             /* Se estira si es necesario */
+}
+
+/* --- MITAD DERECHA: FORMULARIO DE LOGIN --- */
+.split-form-container {
+    flex: 1;                  /* Ocupa el otro 50% del contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Aseguramos que la caja del login no se estire de más */
+.split-form-container .login-box {
+    width: 100%;
+    max-width: 450px;         /* Un ancho máximo elegante para formularios */
+    margin: 0 auto;
+}
+
+/* =======================================================
+   ADAPTACIÓN PARA MÓVILES (RESPONSIVE)
+   ======================================================= */
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column; /* Apila el carrusel arriba y el login abajo en pantallas pequeñas */
+        gap: 20px;
+    }
+
+    .split-visual, 
+    .split-form-container {
+        width: 100%;          /* Cada uno ocupa el 100% del ancho del celular */
+    }
+}
+
+/* Estilos para el Dashboard Admin */
+.dashboard-header {
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    flex: 1;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Tabla de Datos */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table th {
+    background-color: #f8f9fa;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
